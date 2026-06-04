@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="52 Questions" />
+  <meta name="theme-color" content="#e8a96a" />
+  <title>52 Questions — Family Journal</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     SETUP SCREEN (first run — enter Supabase credentials)
+══════════════════════════════════════════════════════ -->
+<div id="setup-screen" class="full-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo">🌿</div>
+    <h2 class="auth-title">Connect to Cloud</h2>
+    <p class="auth-sub">Paste your Supabase project URL and anon key to enable sync across devices.</p>
+    <div class="form-row">
+      <label class="form-label">Supabase Project URL</label>
+      <input class="form-input" id="setup-url" placeholder="https://xxxx.supabase.co" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Anon / Public Key</label>
+      <input class="form-input" id="setup-key" placeholder="eyJhbGci…" />
+    </div>
+    <button class="btn btn-full" onclick="saveSupabaseConfig()">Connect →</button>
+    <button class="btn btn-outline btn-full" style="margin-top:0.6rem" onclick="useOfflineMode()">Use offline only</button>
+    <p class="auth-hint">Get these from <strong>supabase.com</strong> → Project Settings → API.<br/>It's free — no credit card needed.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     AUTH SCREEN (sign in / sign up)
+══════════════════════════════════════════════════════ -->
+<div id="auth-screen" class="full-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo">💛</div>
+    <h2 class="auth-title" id="auth-title">Welcome back</h2>
+    <p class="auth-sub" id="auth-sub">Sign in to sync your family journal.</p>
+
+    <div id="auth-error" class="auth-error" style="display:none"></div>
+    <p style="text-align:center;margin-bottom:0.75rem">
+      <a href="#" style="font-size:0.78rem;color:var(--muted);text-decoration:underline" onclick="resetSupabaseConfig()">Wrong URL or key? Change connection settings</a>
+    </p>
+
+    <div class="form-row">
+      <label class="form-label">Email</label>
+      <input class="form-input" id="auth-email" type="email" placeholder="you@example.com" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Password</label>
+      <input class="form-input" id="auth-password" type="password" placeholder="••••••••" />
+    </div>
+
+    <!-- Sign-up only -->
+    <div id="auth-signup-fields" style="display:none">
+      <div class="form-row">
+        <label class="form-label">Family name</label>
+        <input class="form-input" id="auth-family" placeholder="e.g. The Johnsons" />
+      </div>
+    </div>
+
+    <button class="btn btn-full" id="auth-submit-btn" onclick="authSubmit()">Sign In</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:0.6rem" id="auth-toggle-btn" onclick="toggleAuthMode()">
+      Don't have an account? Sign up
+    </button>
+
+    <!-- Join existing family -->
+    <div class="auth-divider">or</div>
+    <button class="btn btn-outline btn-full" onclick="openJoinSheet()">Join family with invite code</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     ONBOARDING (offline mode — first run)
+══════════════════════════════════════════════════════ -->
+<div id="onboarding" style="display:none">
+  <div class="ob-emoji">🌿</div>
+  <h1 class="ob-title">52 <em>Questions</em></h1>
+  <p class="ob-sub">A year of meaningful family conversations — one question a week, saved forever.</p>
+  <div class="ob-form">
+    <div class="form-row">
+      <label class="form-label" for="ob-family">Your family name</label>
+      <input class="form-input" id="ob-family" placeholder="e.g. The Johnsons" />
+    </div>
+    <button class="btn btn-full" onclick="finishOnboarding()">Let's Begin →</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:0.6rem" onclick="showSetup()">☁️ Set up cloud sync</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MAIN APP
+══════════════════════════════════════════════════════ -->
+<div id="app" style="display:none">
+
+  <!-- ── HOME ── -->
+  <div id="screen-home" class="screen">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">52 Questions</div>
+        <div class="topbar-sub sync-status" id="sync-status">●  offline</div>
+      </div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="icon-btn" onclick="openAddMember()" title="Add member">＋</button>
+        <button class="icon-btn" onclick="openSettings()" title="Settings">⚙</button>
+      </div>
+    </div>
+    <div class="scroll-body">
+      <div class="home-greeting">
+        <div class="greeting-label" id="home-greeting">Good morning,</div>
+        <div class="greeting-name" id="home-family"></div>
+      </div>
+      <div class="week-banner">
+        <div class="week-badge" id="week-num">Week 1 of 52</div>
+        <div class="week-q" id="week-q"></div>
+        <div class="week-actions">
+          <button class="week-btn primary" onclick="openCompose(getWeekIdx(), null)">Answer it 💬</button>
+          <button class="week-btn" onclick="setScreen('all')">All questions</button>
+        </div>
+      </div>
+      <div class="section-label">
+        <span>Family Members</span>
+        <button class="btn btn-ghost btn-sm" onclick="setScreen('family')">Manage</button>
+      </div>
+      <div class="members-row" id="home-members"></div>
+      <div class="section-label" style="margin-top:1.75rem">
+        <span>Recent Answers</span>
+        <button class="btn btn-ghost btn-sm" onclick="setScreen('journal')">See all</button>
+      </div>
+      <div class="recent-list" id="home-recent"></div>
+    </div>
+  </div>
+
+  <!-- ── QUESTIONS ── -->
+  <div id="screen-all" class="screen">
+    <div class="topbar"><div class="topbar-title">All 52 Questions</div></div>
+    <div class="search-bar">
+      <input class="search-input" id="q-search" placeholder="🔍  Search questions…" />
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" onclick="setQFilter('all', this)">All</button>
+      <button class="chip" onclick="setQFilter('imagination', this)">Imagination</button>
+      <button class="chip" onclick="setQFilter('identity', this)">Identity</button>
+      <button class="chip" onclick="setQFilter('emotions', this)">Emotions</button>
+      <button class="chip" onclick="setQFilter('connection', this)">Connection</button>
+      <button class="chip" onclick="setQFilter('memory', this)">Memory</button>
+      <button class="chip" onclick="setQFilter('wonder', this)">Wonder</button>
+    </div>
+    <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+      <div class="questions-list" id="q-list"></div>
+    </div>
+  </div>
+
+  <!-- ── JOURNAL ── -->
+  <div id="screen-journal" class="screen">
+    <div class="topbar"><div class="topbar-title">Journal</div></div>
+    <div class="journal-member-strip" id="journal-strip"></div>
+    <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+      <div class="journal-entries" id="journal-entries"></div>
+    </div>
+  </div>
+
+  <!-- ── FAMILY ── -->
+  <div id="screen-family" class="screen">
+    <div class="topbar">
+      <div class="topbar-title">Family</div>
+      <button class="icon-btn" onclick="openAddMember()">＋</button>
+    </div>
+    <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+      <div class="profile-list" id="profile-list"></div>
+      <div style="padding:0 1.25rem 0.5rem">
+        <button class="btn btn-outline btn-full" onclick="openAddMember()">＋ Add Family Member</button>
+      </div>
+      <div id="invite-section" style="padding:0.75rem 1.25rem 1rem;display:none">
+        <div class="invite-box">
+          <div class="invite-label">Family invite code</div>
+          <div class="invite-code" id="invite-code-display">—</div>
+          <div class="invite-hint">Share this with your partner to sync on their device</div>
+          <button class="btn btn-ghost btn-sm btn-full" onclick="copyInviteCode()" style="margin-top:0.75rem">📋 Copy code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BOTTOM NAV ── -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-screen="home" onclick="setScreen('home')">
+      <div class="nav-icon">🏠</div><div class="nav-label">Home</div>
+    </button>
+    <button class="nav-item" data-screen="all" onclick="setScreen('all')">
+      <div class="nav-icon">💬</div><div class="nav-label">Questions</div>
+    </button>
+    <button class="nav-item" data-screen="journal" onclick="setScreen('journal')">
+      <div class="nav-icon">📖</div><div class="nav-label">Journal</div>
+    </button>
+    <button class="nav-item" data-screen="family" onclick="setScreen('family')">
+      <div class="nav-icon">👨‍👩‍👧</div><div class="nav-label">Family</div>
+    </button>
+  </nav>
+
+</div><!-- #app -->
+
+<!-- ══════════════════════════════════════════════════════
+     OVERLAY + SHEETS
+══════════════════════════════════════════════════════ -->
+<div id="overlay" class="overlay">
+
+  <!-- Compose Answer -->
+  <div id="compose-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Answer the Question</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="compose-q" id="compose-q"></div>
+      <div class="compose-insight" id="compose-insight"></div>
+      <div class="form-row">
+        <label class="form-label">Who is answering?</label>
+        <div class="who-select" id="compose-who"></div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Their answer</label>
+        <textarea class="compose-textarea" id="compose-answer" placeholder="Write what they said, in their own words…"></textarea>
+      </div>
+      <!-- Photo attachment -->
+      <div class="form-row">
+        <label class="form-label">Add a photo (optional)</label>
+        <div class="photo-picker" id="photo-picker-area">
+          <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)" />
+          <div class="photo-placeholder" onclick="document.getElementById('photo-input').click()">
+            <span class="photo-icon">📷</span>
+            <span class="photo-placeholder-text">Tap to add a photo</span>
+          </div>
+          <div class="photo-preview-wrap" id="photo-preview-wrap" style="display:none">
+            <img id="photo-preview" class="photo-preview" alt="Selected photo" />
+            <button class="photo-remove" onclick="removePhoto()">✕</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-full" id="save-answer-btn" onclick="saveAnswer()">💾 Save to Journal</button>
+    </div>
+  </div>
+
+  <!-- Entry Detail -->
+  <div id="detail-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title" id="detail-who"></div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="detail-photo-wrap" id="detail-photo-wrap" style="display:none">
+        <img id="detail-photo" class="detail-photo" alt="Memory photo" />
+      </div>
+      <div class="detail-q" id="detail-q"></div>
+      <div class="detail-answer-box">
+        <div class="detail-answer" id="detail-answer"></div>
+      </div>
+      <div class="detail-meta" id="detail-meta"></div>
+      <button class="btn btn-danger btn-full btn-sm" onclick="deleteEntry()">🗑 Delete Entry</button>
+    </div>
+  </div>
+
+  <!-- Add / Edit Member -->
+  <div id="member-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title" id="member-sheet-title">Add Family Member</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="form-row">
+        <label class="form-label">Choose an emoji</label>
+        <div class="emoji-grid" id="emoji-grid"></div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Name</label>
+        <input class="form-input" id="member-name" placeholder="e.g. Sophie" />
+      </div>
+      <div class="form-row">
+        <label class="form-label">Date of birth (optional)</label>
+        <input class="form-input" id="member-dob" type="date" />
+      </div>
+      <button class="btn btn-full" onclick="saveMember()" style="margin-bottom:0.75rem">Save</button>
+      <button id="delete-member-btn" class="btn btn-outline btn-full btn-sm" onclick="deleteMember()" style="display:none">Remove from family</button>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div id="settings-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Settings</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="form-row">
+        <label class="form-label">Family name</label>
+        <input class="form-input" id="settings-family" />
+      </div>
+      <button class="btn btn-full" onclick="saveSettings()" style="margin-bottom:1rem">Save</button>
+      <div id="cloud-status-section">
+        <div class="settings-section-label">Cloud Sync</div>
+        <div id="cloud-info" class="cloud-info"></div>
+        <button class="btn btn-outline btn-full btn-sm" id="cloud-action-btn" onclick="cloudAction()"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Join family -->
+  <div id="join-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Join a Family</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem">Ask your partner for their 8-character invite code and enter it below.</p>
+      <div class="form-row">
+        <label class="form-label">Invite code</label>
+        <input class="form-input" id="join-code" placeholder="e.g. a3f9b2c1" style="letter-spacing:0.1em;font-size:1.1rem;text-transform:lowercase" maxlength="8" />
+      </div>
+      <button class="btn btn-full" onclick="joinFamily()">Join Family →</button>
+    </div>
+  </div>
+
+</div><!-- overlay -->
+
+<script src="app.js"></script>
+</body>
+</html>
