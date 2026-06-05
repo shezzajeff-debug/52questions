@@ -1124,6 +1124,71 @@ body {
   line-height: 1.5;
 }
 
+/* ─── ACTIVITY BANNER ─── */
+.activity-banner {
+  background: linear-gradient(135deg, #6baa8e 0%, #3d7a5e 100%);
+  margin-top: 0;
+}
+
+/* ─── TAB TOGGLE ─── */
+.tab-toggle-wrap {
+  background: var(--white);
+  border-bottom: 1px solid #ede4d8;
+  padding: 0.65rem 1.25rem;
+  flex-shrink: 0;
+}
+
+.tab-toggle {
+  display: flex;
+  background: var(--warm);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: var(--white);
+  color: var(--brown);
+  box-shadow: 0 1px 4px rgba(92,61,46,0.12);
+}
+
+/* ─── ACTIVITY TAG COLORS ─── */
+.tag-act-creative { background: #fde8d2; color: #b5631a; }
+.tag-act-outdoor  { background: #dff0e3; color: #1e7a3e; }
+.tag-act-ritual   { background: #f0e6f7; color: #7a3fa8; }
+.tag-act-service  { background: #d4eaf7; color: #1a5f8a; }
+.tag-act-play     { background: #fdf3d2; color: #8a6a1a; }
+.tag-act-memory   { background: #fde8e8; color: #a02020; }
+
+/* ─── RECENT TYPE PILLS ─── */
+.recent-type-pill {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+}
+.question-pill { background: #fde8d2; color: #b5631a; }
+.activity-pill { background: #dff0e3; color: #1e7a3e; }
+
+/* ─── ACTIVITY DETAIL ─── */
+.activity-tag-row { margin-bottom: 0.25rem; }
+
 /* ─── SETTINGS ─── */
 .settings-section-label {
   font-size: 0.7rem;

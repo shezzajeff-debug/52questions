@@ -117,12 +117,22 @@
         <div class="greeting-label" id="home-greeting">Good morning,</div>
         <div class="greeting-name" id="home-family"></div>
       </div>
+      <!-- This week's question -->
       <div class="week-banner">
         <div class="week-badge" id="week-num">Week 1 of 52</div>
         <div class="week-q" id="week-q"></div>
         <div class="week-actions">
           <button class="week-btn primary" onclick="openCompose(getWeekIdx(), null)">Answer it 💬</button>
-          <button class="week-btn" onclick="setScreen('all')">All questions</button>
+          <button class="week-btn" onclick="setScreen('all'); showTab('questions')">All questions</button>
+        </div>
+      </div>
+      <!-- This week's activity -->
+      <div class="week-banner activity-banner">
+        <div class="week-badge" id="activity-week-num">Activity · Week 1</div>
+        <div class="week-q" id="activity-week-title"></div>
+        <div class="week-actions">
+          <button class="week-btn primary" onclick="openActivityLog(getWeekIdx(), null)">Log it 🎯</button>
+          <button class="week-btn" onclick="setScreen('all'); showTab('activities')">All activities</button>
         </div>
       </div>
       <div class="section-label">
@@ -131,30 +141,58 @@
       </div>
       <div class="members-row" id="home-members"></div>
       <div class="section-label" style="margin-top:1.75rem">
-        <span>Recent Answers</span>
+        <span>Recent Entries</span>
         <button class="btn btn-ghost btn-sm" onclick="setScreen('journal')">See all</button>
       </div>
       <div class="recent-list" id="home-recent"></div>
     </div>
   </div>
 
-  <!-- ── QUESTIONS ── -->
+  <!-- ── QUESTIONS + ACTIVITIES ── -->
   <div id="screen-all" class="screen">
-    <div class="topbar"><div class="topbar-title">All 52 Questions</div></div>
-    <div class="search-bar">
-      <input class="search-input" id="q-search" placeholder="🔍  Search questions…" />
+    <div class="topbar"><div class="topbar-title" id="explore-title">Questions</div></div>
+    <!-- Tab toggle -->
+    <div class="tab-toggle-wrap">
+      <div class="tab-toggle">
+        <button class="tab-btn active" id="tab-questions" onclick="showTab('questions')">💬 Questions</button>
+        <button class="tab-btn" id="tab-activities" onclick="showTab('activities')">🎯 Activities</button>
+      </div>
     </div>
-    <div class="filter-chips">
-      <button class="chip active" onclick="setQFilter('all', this)">All</button>
-      <button class="chip" onclick="setQFilter('imagination', this)">Imagination</button>
-      <button class="chip" onclick="setQFilter('identity', this)">Identity</button>
-      <button class="chip" onclick="setQFilter('emotions', this)">Emotions</button>
-      <button class="chip" onclick="setQFilter('connection', this)">Connection</button>
-      <button class="chip" onclick="setQFilter('memory', this)">Memory</button>
-      <button class="chip" onclick="setQFilter('wonder', this)">Wonder</button>
+    <!-- Questions panel -->
+    <div id="panel-questions">
+      <div class="search-bar" style="padding-top:0">
+        <input class="search-input" id="q-search" placeholder="🔍  Search questions…" />
+      </div>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setQFilter('all', this)">All</button>
+        <button class="chip" onclick="setQFilter('imagination', this)">Imagination</button>
+        <button class="chip" onclick="setQFilter('identity', this)">Identity</button>
+        <button class="chip" onclick="setQFilter('emotions', this)">Emotions</button>
+        <button class="chip" onclick="setQFilter('connection', this)">Connection</button>
+        <button class="chip" onclick="setQFilter('memory', this)">Memory</button>
+        <button class="chip" onclick="setQFilter('wonder', this)">Wonder</button>
+      </div>
+      <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+        <div class="questions-list" id="q-list"></div>
+      </div>
     </div>
-    <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
-      <div class="questions-list" id="q-list"></div>
+    <!-- Activities panel -->
+    <div id="panel-activities" style="display:none">
+      <div class="search-bar" style="padding-top:0">
+        <input class="search-input" id="a-search" placeholder="🔍  Search activities…" />
+      </div>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setAFilter('all', this)">All</button>
+        <button class="chip" onclick="setAFilter('creative', this)">Creative</button>
+        <button class="chip" onclick="setAFilter('outdoor', this)">Outdoor</button>
+        <button class="chip" onclick="setAFilter('ritual', this)">Ritual</button>
+        <button class="chip" onclick="setAFilter('service', this)">Service</button>
+        <button class="chip" onclick="setAFilter('play', this)">Play</button>
+        <button class="chip" onclick="setAFilter('memory', this)">Memory</button>
+      </div>
+      <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+        <div class="questions-list" id="a-list"></div>
+      </div>
     </div>
   </div>
 
@@ -246,6 +284,63 @@
         </div>
       </div>
       <button class="btn btn-full" id="save-answer-btn" onclick="saveAnswer()">💾 Save to Journal</button>
+    </div>
+  </div>
+
+  <!-- Activity Log Sheet -->
+  <div id="activity-log-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Log this Activity</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="compose-q" id="log-activity-title"></div>
+      <div class="compose-insight" id="log-activity-why"></div>
+      <div class="form-row">
+        <label class="form-label">Who did this activity?</label>
+        <div class="who-select" id="log-who"></div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">How did it go? (optional)</label>
+        <textarea class="compose-textarea" id="log-notes" placeholder="What happened, what was said, what you'll remember…" style="min-height:90px"></textarea>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Add a photo (optional)</label>
+        <div class="photo-picker">
+          <input type="file" id="log-photo-input" accept="image/*" style="display:none" onchange="handleLogPhotoSelect(event)" />
+          <div class="photo-placeholder" id="log-photo-placeholder" onclick="document.getElementById('log-photo-input').click()">
+            <span class="photo-icon">📷</span>
+            <span class="photo-placeholder-text">Tap to add a photo</span>
+          </div>
+          <div class="photo-preview-wrap" id="log-photo-preview-wrap" style="display:none">
+            <img id="log-photo-preview" class="photo-preview" alt="Selected photo" />
+            <button class="photo-remove" onclick="removeLogPhoto()">✕</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-full" id="save-log-btn" onclick="saveActivityLog()">✅ Mark as Done</button>
+    </div>
+  </div>
+
+  <!-- Activity Detail Sheet -->
+  <div id="activity-detail-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title" id="act-detail-who"></div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="detail-photo-wrap" id="act-detail-photo-wrap" style="display:none">
+        <img id="act-detail-photo" class="detail-photo" alt="Activity photo" />
+      </div>
+      <div class="activity-tag-row" id="act-detail-tag-row"></div>
+      <div class="detail-q" id="act-detail-title"></div>
+      <div class="detail-answer-box" id="act-detail-notes-box" style="display:none">
+        <div class="detail-answer" id="act-detail-notes"></div>
+      </div>
+      <div class="detail-meta" id="act-detail-meta"></div>
+      <button class="btn btn-danger btn-full btn-sm" onclick="deleteActivityLog()">🗑 Delete Entry</button>
     </div>
   </div>
 

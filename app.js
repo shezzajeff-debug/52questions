@@ -55,12 +55,71 @@ const QUESTIONS = [
 ];
 
 const TAG_LABELS = { imagination:"Imagination", identity:"Identity", emotions:"Emotions", connection:"Connection", memory:"Memory", wonder:"Wonder" };
+
+// ─── ACTIVITIES DATA ──────────────────────────────────────────────────────────
+const ACTIVITIES = [
+  { title: "Cook Their Dream Dinner Together", why: "Agency and shared creation build a sense of partnership.", detail: "Let them design the menu — no matter how absurd — and cook it side by side. You're the sous-chef.", tag: "creative" },
+  { title: "Build a Fort and Tell Stories Inside", why: "Enclosed spaces unlock vulnerability and collaborative imagination.", detail: "Blankets, pillows, fairy lights. Then tell a story together — you start, they continue, back and forth.", tag: "play" },
+  { title: "Take a Night Walk with One Flashlight", why: "Darkness and movement lower defenses; deep truths emerge.", detail: "Walk the neighborhood at dusk. The flashlight beam becomes a portal to talk about things that daylight hides.", tag: "outdoor" },
+  { title: "Write Letters to Each Other's Future Selves", why: "Time-binding acts teach that love transcends now.", detail: "Both write a letter to the other, to be opened in exactly one year. Seal them in envelopes, hide them somewhere sacred.", tag: "ritual" },
+  { title: "Create a Secret Handshake", why: "Rituals of belonging. They'll remember it forever.", detail: "Not a one-time thing. Spend a whole afternoon designing a multi-part handshake that's ridiculously yours.", tag: "ritual" },
+  { title: "Go Stargazing with No Agenda", why: "Awe shared between parent and child is a powerful glue.", detail: "Lie on a blanket, find constellations, or make up your own. The only goal is looking up together.", tag: "outdoor" },
+  { title: "Make a Family Time Capsule", why: "Collective identity and hope across time.", detail: "Collect small objects, notes, a photo, a voice recording. Seal it in a box and bury it or hide it with a future open-date.", tag: "memory" },
+  { title: "Volunteer Together for Something They Care About", why: "Values are caught, not taught — and shared service builds quiet pride.", detail: "Even just one hour at an animal shelter, a food bank, or cleaning a creek. Let them choose.", tag: "service" },
+  { title: "Have a 'Yes Day' Where You Say Yes to Everything (Safe)", why: "Celebration of their autonomy inside a safe container.", detail: "Ice cream for breakfast? Yes. Pajamas in the park? Yes. They lead, you follow.", tag: "play" },
+  { title: "Draw Portraits of Each Other", why: "Being seen — literally and emotionally — in one sitting.", detail: "Sit across from each other, pencils and paper, and really look. No artistic skill required. Then show each other.", tag: "creative" },
+  { title: "Create a Soundtrack of Your Lives Together", why: "Sonic time travel into shared history.", detail: "Build a playlist where each of you picks songs that represent a memory. Listen to it in the car.", tag: "memory" },
+  { title: "Write a Story Where They're the Hero", why: "Narrative ownership: their life as epic.", detail: "Sit side by side, you type, they dictate. Give them powers, a quest, and a moment where they save the day. Print it.", tag: "creative" },
+  { title: "Go Cloudwatching and Find 10 Shapes", why: "Presence and imagination, zero structure.", detail: "Lie on the grass, find dragons, faces, islands. The only rule: no pointing out anything that's actually a cloud.", tag: "outdoor" },
+  { title: "Hold a Parent-Child Interview", why: "Mutual curiosity. You are not a mystery; you're a person.", detail: "They get to interview you with any questions they want. Record it on your phone. Then switch.", tag: "ritual" },
+  { title: "Build Something Simple Out of Wood", why: "Tangible shared accomplishment and the gift of imperfection.", detail: "A birdhouse, a tiny boat, a wobbly shelf. They hammer, you guide. Let the imperfections stay.", tag: "creative" },
+  { title: "Do a Random Act of Kindness Together", why: "Kindness as shared adventure.", detail: "Choose it together: pay for someone's coffee, leave a note on a stranger's windshield, draw a chalk message.", tag: "service" },
+  { title: "Teach Them Something You Love", why: "Legacy is not genetic; it's intentional.", detail: "A chord on the guitar, a magic trick, a recipe from your grandmother. Your passion, passed on.", tag: "ritual" },
+  { title: "Let Them Teach You Something", why: "Power reversal builds respect and laughter.", detail: "A video game, a TikTok dance, how to build something in their favorite app. You're the clumsy student.", tag: "play" },
+  { title: "Write a Letter to Someone You Both Miss", why: "Grief and love woven into shared ritual.", detail: "Light a candle, write or draw a message to a grandparent, a friend who moved, a pet. Decide together whether to send it.", tag: "ritual" },
+  { title: "Have a Board Game Championship", why: "Play with structure, laughter with no stakes.", detail: "Over a weekend, play a series of games and keep a silly leaderboard. Winner gets a homemade trophy.", tag: "play" },
+  { title: "Create a Family Mantra or Motto", why: "Articulated identity creates invisible strength.", detail: "Discuss what your little team believes in. Boil it down to a phrase. Paint it on a rock, frame it.", tag: "ritual" },
+  { title: "Go on a Photo Safari", why: "Their inner world, framed and visible.", detail: "Each of you takes 10 photos of something that \"makes you feel something.\" Then compare and explain.", tag: "creative" },
+  { title: "Plan and Execute a 'Celebrate Yourself' Day", why: "Radical affirmation: you are worthy of celebration, simply for being you.", detail: "One whole day devoted to celebrating them — their favorite foods, activities, and small surprise tributes.", tag: "ritual" },
+  { title: "Have a Movie Night Where You Pause and Predict", why: "Joint storytelling and the thrill of being right (or hilariously wrong).", detail: "Halfway through, pause and both write down what you think happens next. Then keep watching.", tag: "play" },
+  { title: "Make a Map of Your Life Together So Far", why: "Narrative geography: their story has a landscape.", detail: "On a big piece of paper, draw a winding road with landmarks: \"Day You Were Born,\" \"The Bee Sting Trip,\" \"First Rollercoaster.\" Add together.", tag: "memory" },
+  { title: "Go on a Gratitude Walk", why: "Embodied gratitude, not recited.", detail: "Walk in silence for 5 minutes, then each share 5 things you noticed that you're grateful for.", tag: "outdoor" },
+  { title: "Recreate Your Favorite Photo from When They Were Younger", why: "Time held tenderly; growth celebrated.", detail: "Find an old photo, dress similarly, strike the same pose, laugh at the years.", tag: "memory" },
+  { title: "Do a Puzzle Over Several Days", why: "Shared quiet purpose and the metaphor of slow completion.", detail: "Keep it on a table, wander over together, find one piece each evening. No rush.", tag: "play" },
+  { title: "Have a 'No Words' Hour", why: "Heightened awareness of non-verbal connection.", detail: "Spend one hour together communicating only through gestures, notes, and facial expressions.", tag: "play" },
+  { title: "Write a Poem, One Line Each", why: "Co-creation without domination.", detail: "Start with a line about a feeling or a place. Pass the paper back and forth until the poem feels done. Read it aloud.", tag: "creative" },
+  { title: "Hold a 'What If' Session", why: "Imagination as connection, not escape.", detail: "No limits: What if we lived on a spaceship? What if dogs could talk? What if bedtime was noon?", tag: "play" },
+  { title: "Create a Legacy Jar", why: "Anticipation and accumulation of joy.", detail: "Write down small moments, jokes, achievements over a month and drop them in. Open on New Year's Eve.", tag: "ritual" },
+  { title: "Go Back to a Place That Holds a Memory", why: "Anchoring identity in physical space.", detail: "The hospital where they were born, the park where they took first steps, the old apartment. Walk and tell the story.", tag: "memory" },
+  { title: "Make a 'Rules of the World' List", why: "Reveals values and what they experience as constriction.", detail: "What rules would they invent if they were in charge? Bedtime at midnight? Chocolate vegetables? Write them down seriously.", tag: "creative" },
+  { title: "Do a Trust Walk", why: "Vulnerable dependence builds deep trust.", detail: "Blindfold them (or you), guide each other through the house or garden using only gentle words. Switch roles.", tag: "play" },
+  { title: "Create a Handprint or Footprint Cast Together", why: "Physical evidence of \"we were here, together, at this size.\"", detail: "Plaster or clay, side by side. Paint them, date them, display them.", tag: "memory" },
+  { title: "Take Them on a 'Mystery Date'", why: "Curated delight and the thrill of being led by someone who knows you.", detail: "Plan an outing but give zero details. Every step is a surprise: a bakery, a kite field, a used bookstore.", tag: "ritual" },
+  { title: "Listen to an Old Radio Show or Podcast and Discuss", why: "Cross-generational empathy and active listening.", detail: "Find a story from before they were born. Pause and ask: \"What would you do?\"", tag: "play" },
+  { title: "Make a 'Strengths Shield' or Coat of Arms", why: "Naming strengths aloud carves them into identity.", detail: "Draw a shield. In each section, write a strength you see in them. They draw one for you too.", tag: "creative" },
+  { title: "Do a 'Sit in Silence and Notice' Outside", why: "Shared stillness as a love language.", detail: "Pick a spot in nature. Sit for 5 minutes silently. Then whisper what you heard, saw, smelled.", tag: "outdoor" },
+  { title: "Create a 'Best Moments' Box", why: "A tactile antidote to future discouragement.", detail: "Decorate a shoebox. Whenever something great happens, write it on a slip and drop it in. Read them on tough days.", tag: "ritual" },
+  { title: "Choreograph a Silly Dance to Their Favorite Song", why: "Embodied joy and the freedom of looking foolish together.", detail: "No talent required. Create 3 ridiculous moves, name them, perform them together until you collapse laughing.", tag: "play" },
+  { title: "Trace Each Other's Silhouette", why: "A physical portrait of love and perception.", detail: "Tape paper to the wall, cast a shadow, trace it, then fill in the outline with words that describe the other.", tag: "creative" },
+  { title: "Have an 'Inside Joke' Creation Day", why: "Belonging forged in exclusive, shared absurdity.", detail: "Actively try to make a new inside joke. Do something silly, give it a name, repeat it.", tag: "play" },
+  { title: "Plan a Future Trip Together (Even If Years Away)", why: "Hope and anticipation as shared emotional fuel.", detail: "Get maps, guidebooks, draw the route, decide what you'll eat there. Make it real enough to taste.", tag: "ritual" },
+  { title: "Make a 'Gratitude for You' Journal", why: "A deep dive into being seen and valued.", detail: "Each of you gets a small notebook. For one month, write one thing you appreciate about the other every night. Then swap and read.", tag: "ritual" },
+  { title: "Design and Build a Miniature World", why: "World-building is relationship-building.", detail: "A garden terrarium, a tiny village from craft supplies, a Lego universe with a backstory you invent together.", tag: "creative" },
+  { title: "Record a Podcast Episode Together", why: "Their voice preserved, their thoughts taken seriously.", detail: "Just your phone on voice memo. Pick a topic: \"Review of Our Day,\" \"Best Animals,\" \"Things Adults Don't Get.\"", tag: "creative" },
+  { title: "Have a 'Reverse Role' Dinner", why: "Perspective-taking through play.", detail: "They sit in your chair, you in theirs. They serve the food (with help), they ask the \"parent\" questions.", tag: "play" },
+  { title: "Go on a 'Nostalgia Trip' Through Old Photos", why: "Narrating their origin story builds coherence and belonging.", detail: "Curl up and scroll through baby photos or print albums. Tell the stories behind each one.", tag: "memory" },
+  { title: "Plan and Execute a 'Thank-You' Ritual for Someone", why: "Active gratitude that extends the circle of connection.", detail: "Choose a person who's helped them (teacher, coach, grandparent). Together, make something, deliver it.", tag: "service" },
+  { title: "Create a Time-Lapse of an Ordinary Day", why: "The mundane becomes sacred through attention.", detail: "Set a phone to take one photo every hour of something you're doing together. At the end, flick through the day.", tag: "creative" },
+];
+
+const ACTIVITY_TAG_LABELS = { creative:"Creative", outdoor:"Outdoor", ritual:"Ritual", service:"Service", play:"Play", memory:"Memory" };
 const EMOJIS = ['🌟','🦋','🌈','🌿','🦁','🐬','🦊','🌸','🍀','🌺','🦄','🐻','🌙','☀️','🦜','🐧','🌻','🎈','🌊','🦅','🐝','🎀','🦒','🐙'];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let state = {
   members: [],
   answers: [],
+  activityLogs: [],
   familyName: 'Our Family',
   familyId: null,
   inviteCode: null,
@@ -70,12 +129,20 @@ let state = {
 
 let ui = {
   screen: 'home',
+  activeTab: 'questions',
   qFilter: 'all',
   qSearch: '',
+  aFilter: 'all',
+  aSearch: '',
   journalMember: 'all',
   composeQIdx: null,
   composeMember: null,
   detailAnswerId: null,
+  logActivityIdx: null,
+  logMember: null,
+  logPhotoFile: null,
+  logPhotoUrl: null,
+  detailLogId: null,
   editMemberId: null,
   selectedEmoji: '🌟',
   selectedPhotoFile: null,
@@ -246,6 +313,13 @@ async function loadFromCloud() {
     id: a.id, memberId: a.member_id, questionIdx: a.question_idx,
     answer: a.answer, date: a.answered_at, ageAtTime: a.age_at_time, photoUrl: a.photo_url,
   }));
+
+  // Load activity logs
+  const { data: logs } = await sb.from('activity_logs').select('*').eq('family_id', fam.id).order('logged_at', { ascending: false });
+  state.activityLogs = (logs || []).map(l => ({
+    id: l.id, memberId: l.member_id, activityIdx: l.activity_idx,
+    notes: l.notes, date: l.logged_at, photoUrl: l.photo_url,
+  }));
   saveLocal();
 }
 
@@ -371,6 +445,11 @@ function renderHome() {
   document.getElementById('week-num').textContent = `Week ${weekIdx + 1} of 52`;
   document.getElementById('week-q').textContent = wq.q;
 
+  // This week's activity
+  const wa = ACTIVITIES[weekIdx];
+  document.getElementById('activity-week-num').textContent = `🎯 Activity · Week ${weekIdx + 1}`;
+  document.getElementById('activity-week-title').textContent = wa.title;
+
   // Members row
   const row = document.getElementById('home-members');
   row.innerHTML = '';
@@ -387,29 +466,48 @@ function renderHome() {
   addC.onclick = openAddMember;
   row.appendChild(addC);
 
-  // Recent
+  // Recent — merge answers + activity logs
   const list = document.getElementById('home-recent');
   list.innerHTML = '';
-  const recent = [...state.answers].sort((a,b) => new Date(b.date)-new Date(a.date)).slice(0,10);
+  const recentAnswers = state.answers.map(a => ({ ...a, _type: 'answer' }));
+  const recentLogs = state.activityLogs.map(l => ({ ...l, _type: 'activity' }));
+  const recent = [...recentAnswers, ...recentLogs].sort((a,b) => new Date(b.date)-new Date(a.date)).slice(0,10);
+
   if (!recent.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📖</div><div class="empty-title">Your journal is empty</div><div class="empty-sub">Answer this week's question to save your first memory.</div></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📖</div><div class="empty-title">Your journal is empty</div><div class="empty-sub">Answer this week's question or log an activity to save your first memory.</div></div>`;
   } else {
     recent.forEach(entry => {
       const m = state.members.find(x => x.id === entry.memberId);
       if (!m) return;
-      const q = QUESTIONS[entry.questionIdx];
       const c = document.createElement('div');
       c.className = 'recent-card';
-      c.innerHTML = `
-        <div class="recent-meta">
-          <div class="recent-avatar-sm">${m.emoji}</div>
-          <span class="recent-who">${m.name}</span>
-          <span class="recent-when">${fmtDate(entry.date)}</span>
-        </div>
-        ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="recent-photo" alt="" />` : ''}
-        <div class="recent-q">"${q.q}"</div>
-        <div class="recent-a">${escHtml(entry.answer)}</div>`;
-      c.onclick = () => openDetail(entry.id);
+      if (entry._type === 'answer') {
+        const q = QUESTIONS[entry.questionIdx];
+        c.innerHTML = `
+          <div class="recent-meta">
+            <div class="recent-avatar-sm">${m.emoji}</div>
+            <span class="recent-who">${m.name}</span>
+            <span class="recent-type-pill question-pill">Question</span>
+            <span class="recent-when">${fmtDate(entry.date)}</span>
+          </div>
+          ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="recent-photo" alt="" />` : ''}
+          <div class="recent-q">"${q.q}"</div>
+          <div class="recent-a">${escHtml(entry.answer)}</div>`;
+        c.onclick = () => openDetail(entry.id);
+      } else {
+        const a = ACTIVITIES[entry.activityIdx];
+        c.innerHTML = `
+          <div class="recent-meta">
+            <div class="recent-avatar-sm">${m.emoji}</div>
+            <span class="recent-who">${m.name}</span>
+            <span class="recent-type-pill activity-pill">Activity</span>
+            <span class="recent-when">${fmtDate(entry.date)}</span>
+          </div>
+          ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="recent-photo" alt="" />` : ''}
+          <div class="recent-q">🎯 ${a.title}</div>
+          ${entry.notes ? `<div class="recent-a">${escHtml(entry.notes)}</div>` : ''}`;
+        c.onclick = () => openActivityDetail(entry.id);
+      }
       list.appendChild(c);
     });
   }
@@ -444,7 +542,7 @@ function renderQuestions() {
 
 function setQFilter(tag, el) {
   ui.qFilter = tag;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.closest('.filter-chips').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   renderQuestions();
 }
@@ -453,6 +551,208 @@ document.getElementById('q-search').addEventListener('input', e => {
   ui.qSearch = e.target.value;
   renderQuestions();
 });
+
+// ─── TAB SWITCHING ────────────────────────────────────────────────────────────
+function showTab(tab) {
+  ui.activeTab = tab;
+  document.getElementById('panel-questions').style.display = tab === 'questions' ? 'flex' : 'none';
+  document.getElementById('panel-questions').style.flexDirection = 'column';
+  document.getElementById('panel-activities').style.display = tab === 'activities' ? 'flex' : 'none';
+  document.getElementById('panel-activities').style.flexDirection = 'column';
+  document.getElementById('tab-questions').classList.toggle('active', tab === 'questions');
+  document.getElementById('tab-activities').classList.toggle('active', tab === 'activities');
+  document.getElementById('explore-title').textContent = tab === 'questions' ? 'Questions' : 'Activities';
+  if (tab === 'activities') renderActivities();
+}
+
+// ─── ACTIVITIES LIST ──────────────────────────────────────────────────────────
+function renderActivities() {
+  const list = document.getElementById('a-list');
+  list.innerHTML = '';
+  const search = ui.aSearch.toLowerCase();
+  ACTIVITIES.forEach((a, i) => {
+    if (ui.aFilter !== 'all' && a.tag !== ui.aFilter) return;
+    if (search && !a.title.toLowerCase().includes(search) && !a.detail.toLowerCase().includes(search)) return;
+    const myLogs = state.activityLogs.filter(l => l.activityIdx === i);
+    const done = myLogs.length > 0;
+    const row = document.createElement('div');
+    row.className = 'q-row' + (done ? ' answered' : '');
+    row.innerHTML = `
+      <div class="q-num-badge">${done ? '✓' : i+1}</div>
+      <div class="q-row-body">
+        <div class="q-row-text">${a.title}</div>
+        <div class="q-row-meta">
+          <span class="q-tag-sm tag-act-${a.tag}">${ACTIVITY_TAG_LABELS[a.tag]}</span>
+          ${done ? `<span class="answered-dot" style="background:#5a9e6f"></span><span class="answered-count">${myLogs.length}x done</span>` : ''}
+        </div>
+      </div>
+      <div class="q-chevron">›</div>`;
+    row.onclick = () => openActivityLog(i, null);
+    list.appendChild(row);
+  });
+}
+
+function setAFilter(tag, el) {
+  ui.aFilter = tag;
+  el.closest('.filter-chips').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderActivities();
+}
+
+document.getElementById('a-search').addEventListener('input', e => {
+  ui.aSearch = e.target.value;
+  renderActivities();
+});
+
+// ─── ACTIVITY LOG ─────────────────────────────────────────────────────────────
+function openActivityLog(actIdx, memberId) {
+  ui.logActivityIdx = actIdx;
+  ui.logMember = memberId;
+  ui.logPhotoFile = null;
+  ui.logPhotoUrl = null;
+
+  const a = ACTIVITIES[actIdx];
+  document.getElementById('log-activity-title').textContent = a.title;
+  document.getElementById('log-activity-why').textContent = a.detail + '\n\n' + a.why;
+  document.getElementById('log-notes').value = '';
+  document.getElementById('log-photo-input').value = '';
+  document.getElementById('log-photo-preview-wrap').style.display = 'none';
+  document.getElementById('log-photo-placeholder').style.display = 'flex';
+
+  const who = document.getElementById('log-who');
+  who.innerHTML = '';
+  if (!state.members.length) {
+    who.innerHTML = `<p style="font-size:0.85rem;color:var(--muted)">Add a family member from the Family tab first.</p>`;
+  } else {
+    state.members.forEach(m => {
+      const opt = document.createElement('div');
+      opt.className = 'who-opt' + (m.id === memberId ? ' selected' : '');
+      opt.innerHTML = `${m.emoji} ${m.name}`;
+      opt.dataset.id = m.id;
+      opt.onclick = () => {
+        document.querySelectorAll('#log-who .who-opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        ui.logMember = m.id;
+      };
+      who.appendChild(opt);
+    });
+  }
+  openSheet('activity-log-sheet');
+}
+
+function handleLogPhotoSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  ui.logPhotoFile = file;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    ui.logPhotoUrl = ev.target.result;
+    document.getElementById('log-photo-preview').src = ev.target.result;
+    document.getElementById('log-photo-preview-wrap').style.display = 'block';
+    document.getElementById('log-photo-placeholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeLogPhoto() {
+  ui.logPhotoFile = null;
+  ui.logPhotoUrl = null;
+  document.getElementById('log-photo-input').value = '';
+  document.getElementById('log-photo-preview-wrap').style.display = 'none';
+  document.getElementById('log-photo-placeholder').style.display = 'flex';
+}
+
+async function saveActivityLog() {
+  if (!ui.logMember) { alert('Please select who did this activity.'); return; }
+
+  const btn = document.getElementById('save-log-btn');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+
+  try {
+    let photoUrl = null;
+    if (ui.logPhotoFile && sb && state.familyId) {
+      const ext = ui.logPhotoFile.name.split('.').pop();
+      const path = `${state.familyId}/act_${Date.now()}.${ext}`;
+      const { data: upData, error: upErr } = await sb.storage.from('photos').upload(path, ui.logPhotoFile);
+      if (!upErr) {
+        const { data: urlData } = sb.storage.from('photos').getPublicUrl(path);
+        photoUrl = urlData?.publicUrl;
+      }
+    } else if (ui.logPhotoUrl && !sb) {
+      photoUrl = ui.logPhotoUrl;
+    }
+
+    const log = {
+      id: Date.now().toString(),
+      memberId: ui.logMember,
+      activityIdx: ui.logActivityIdx,
+      notes: document.getElementById('log-notes').value.trim() || null,
+      date: new Date().toISOString(),
+      photoUrl,
+    };
+
+    if (sb && state.familyId) {
+      const { data: row } = await sb.from('activity_logs').insert({
+        family_id: state.familyId,
+        member_id: log.memberId,
+        activity_idx: log.activityIdx,
+        notes: log.notes,
+        photo_url: log.photoUrl,
+        logged_at: log.date,
+      }).select().single();
+      if (row) log.id = row.id;
+      setSyncStatus(true);
+    }
+
+    state.activityLogs.unshift(log);
+    saveLocal();
+    closeSheet();
+    render();
+    setScreen('journal');
+  } finally {
+    btn.textContent = '✅ Mark as Done';
+    btn.disabled = false;
+  }
+}
+
+function openActivityDetail(logId) {
+  ui.detailLogId = logId;
+  const log = state.activityLogs.find(l => l.id === logId);
+  if (!log) return;
+  const m = state.members.find(x => x.id === log.memberId);
+  const a = ACTIVITIES[log.activityIdx];
+
+  document.getElementById('act-detail-who').textContent = `${m?.emoji||'👤'} ${m?.name||'Unknown'} — ${fmtDate(log.date)}`;
+  document.getElementById('act-detail-title').textContent = a.title;
+  document.getElementById('act-detail-tag-row').innerHTML = `<span class="q-tag-sm tag-act-${a.tag}" style="display:inline-block;margin-bottom:0.75rem">${ACTIVITY_TAG_LABELS[a.tag]}</span>`;
+
+  const notesBox = document.getElementById('act-detail-notes-box');
+  if (log.notes) {
+    document.getElementById('act-detail-notes').textContent = log.notes;
+    notesBox.style.display = 'block';
+  } else {
+    notesBox.style.display = 'none';
+  }
+
+  document.getElementById('act-detail-meta').innerHTML = `<span class="meta-pill">Activity ${log.activityIdx+1} of 52</span>`;
+
+  const photoWrap = document.getElementById('act-detail-photo-wrap');
+  const photoImg = document.getElementById('act-detail-photo');
+  if (log.photoUrl) { photoImg.src = log.photoUrl; photoWrap.style.display = 'block'; }
+  else { photoWrap.style.display = 'none'; }
+
+  openSheet('activity-detail-sheet');
+}
+
+async function deleteActivityLog() {
+  if (!confirm('Delete this activity entry?')) return;
+  if (sb) await sb.from('activity_logs').delete().eq('id', ui.detailLogId);
+  state.activityLogs = state.activityLogs.filter(l => l.id !== ui.detailLogId);
+  saveLocal();
+  closeSheet();
+  render();
+}
 
 // ─── JOURNAL ─────────────────────────────────────────────────────────────────
 function renderJournal() {
@@ -464,36 +764,59 @@ function renderJournal() {
 
   const entries = document.getElementById('journal-entries');
   entries.innerHTML = '';
-  let filtered = [...state.answers].sort((a,b) => new Date(b.date)-new Date(a.date));
+  const allAnswers = state.answers.map(a => ({ ...a, _type: 'answer' }));
+  const allLogs = state.activityLogs.map(l => ({ ...l, _type: 'activity' }));
+  let filtered = [...allAnswers, ...allLogs].sort((a,b) => new Date(b.date)-new Date(a.date));
   if (ui.journalMember !== 'all') filtered = filtered.filter(a => a.memberId === ui.journalMember);
 
   if (!filtered.length) {
-    entries.innerHTML = `<div class="empty-state"><div class="empty-icon">🌱</div><div class="empty-title">No entries yet</div><div class="empty-sub">Go to Questions, pick one, and save your first entry.</div></div>`;
+    entries.innerHTML = `<div class="empty-state"><div class="empty-icon">🌱</div><div class="empty-title">No entries yet</div><div class="empty-sub">Answer a question or log an activity to fill your journal.</div></div>`;
     return;
   }
 
   filtered.forEach(entry => {
     const m = state.members.find(x => x.id === entry.memberId);
     if (!m) return;
-    const q = QUESTIONS[entry.questionIdx];
     const el = document.createElement('div');
     el.className = 'j-entry';
-    el.innerHTML = `
-      ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="j-photo" alt="Memory" />` : ''}
-      <div class="j-entry-header">
-        <div class="j-avatar">${m.emoji}</div>
-        <div><div class="j-who">${m.name}</div><div class="j-q-num">Question ${entry.questionIdx+1}</div></div>
-        <div class="j-when">${fmtDate(entry.date)}</div>
-      </div>
-      <div class="j-entry-body">
-        <div class="j-question">${q.q}</div>
-        <div class="j-answer">${escHtml(entry.answer)}</div>
-      </div>
-      <div class="j-entry-footer">
-        <span class="j-age-tag">${entry.ageAtTime ? `Age ${entry.ageAtTime}` : ''}</span>
-        <span class="q-tag-sm tag-${q.tag}">${TAG_LABELS[q.tag]}</span>
-      </div>`;
-    el.onclick = () => openDetail(entry.id);
+
+    if (entry._type === 'answer') {
+      const q = QUESTIONS[entry.questionIdx];
+      el.innerHTML = `
+        ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="j-photo" alt="Memory" />` : ''}
+        <div class="j-entry-header">
+          <div class="j-avatar">${m.emoji}</div>
+          <div><div class="j-who">${m.name}</div><div class="j-q-num">Question ${entry.questionIdx+1}</div></div>
+          <div class="j-when">${fmtDate(entry.date)}</div>
+        </div>
+        <div class="j-entry-body">
+          <div class="j-question">${q.q}</div>
+          <div class="j-answer">${escHtml(entry.answer)}</div>
+        </div>
+        <div class="j-entry-footer">
+          <span class="j-age-tag">${entry.ageAtTime ? `Age ${entry.ageAtTime}` : ''}</span>
+          <span class="q-tag-sm tag-${q.tag}">${TAG_LABELS[q.tag]}</span>
+        </div>`;
+      el.onclick = () => openDetail(entry.id);
+    } else {
+      const a = ACTIVITIES[entry.activityIdx];
+      el.innerHTML = `
+        ${entry.photoUrl ? `<img src="${entry.photoUrl}" class="j-photo" alt="Activity" />` : ''}
+        <div class="j-entry-header">
+          <div class="j-avatar">${m.emoji}</div>
+          <div><div class="j-who">${m.name}</div><div class="j-q-num">Activity ${entry.activityIdx+1}</div></div>
+          <div class="j-when">${fmtDate(entry.date)}</div>
+        </div>
+        <div class="j-entry-body">
+          <div class="j-question">🎯 ${a.title}</div>
+          ${entry.notes ? `<div class="j-answer">${escHtml(entry.notes)}</div>` : ''}
+        </div>
+        <div class="j-entry-footer">
+          <span class="j-age-tag"></span>
+          <span class="q-tag-sm tag-act-${a.tag}">${ACTIVITY_TAG_LABELS[a.tag]}</span>
+        </div>`;
+      el.onclick = () => openActivityDetail(entry.id);
+    }
     entries.appendChild(el);
   });
 }

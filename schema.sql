@@ -102,6 +102,29 @@ create policy "Family members can delete answers" on answers
     family_id in (select family_id from user_families where user_id = auth.uid())
   );
 
+-- Activity logs
+create table if not exists activity_logs (
+  id uuid primary key default gen_random_uuid(),
+  family_id uuid references families(id) on delete cascade not null,
+  member_id uuid references members(id) on delete set null,
+  activity_idx integer not null check (activity_idx >= 0 and activity_idx <= 51),
+  notes text,
+  photo_url text,
+  logged_at timestamptz default now(),
+  created_at timestamptz default now()
+);
+
+alter table activity_logs enable row level security;
+
+create policy "Family members can read logs" on activity_logs
+  for select using (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family members can insert logs" on activity_logs
+  for insert with check (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family members can update logs" on activity_logs
+  for update using (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family members can delete logs" on activity_logs
+  for delete using (family_id in (select family_id from user_families where user_id = auth.uid()));
+
 -- ── Storage bucket ────────────────────────────────────────────
 -- Run these too:
 insert into storage.buckets (id, name, public)
