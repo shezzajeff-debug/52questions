@@ -135,6 +135,15 @@
           <button class="week-btn" onclick="setScreen('all'); showTab('activities')">All activities</button>
         </div>
       </div>
+      <!-- This week's tradition -->
+      <div class="week-banner tradition-banner">
+        <div class="week-badge" id="tradition-week-num">Tradition · Week 1</div>
+        <div class="week-q" id="tradition-week-title"></div>
+        <div class="week-actions">
+          <button class="week-btn primary" onclick="openTraditionDetail(getWeekIdx())">Explore 🔥</button>
+          <button class="week-btn" onclick="setScreen('all'); showTab('traditions')">All traditions</button>
+        </div>
+      </div>
       <div class="section-label">
         <span>Family Members</span>
         <button class="btn btn-ghost btn-sm" onclick="setScreen('family')">Manage</button>
@@ -156,6 +165,7 @@
       <div class="tab-toggle">
         <button class="tab-btn active" id="tab-questions" onclick="showTab('questions')">💬 Questions</button>
         <button class="tab-btn" id="tab-activities" onclick="showTab('activities')">🎯 Activities</button>
+        <button class="tab-btn" id="tab-traditions" onclick="showTab('traditions')">🔥 Traditions</button>
       </div>
     </div>
     <!-- Questions panel -->
@@ -192,6 +202,23 @@
       </div>
       <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
         <div class="questions-list" id="a-list"></div>
+      </div>
+    </div>
+    <!-- Traditions panel -->
+    <div id="panel-traditions" style="display:none">
+      <div class="search-bar" style="padding-top:0">
+        <input class="search-input" id="t-search" placeholder="🔍  Search traditions…" />
+      </div>
+      <div class="filter-chips">
+        <button class="chip active" onclick="setTFilter('all', this)">All</button>
+        <button class="chip" onclick="setTFilter('daily', this)">Daily</button>
+        <button class="chip" onclick="setTFilter('weekly', this)">Weekly</button>
+        <button class="chip" onclick="setTFilter('monthly', this)">Monthly</button>
+        <button class="chip" onclick="setTFilter('seasonal', this)">Seasonal</button>
+        <button class="chip" onclick="setTFilter('annual', this)">Annual</button>
+      </div>
+      <div class="scroll-body" style="padding-bottom:calc(var(--nav-h) + 1rem)">
+        <div class="questions-list" id="t-list"></div>
       </div>
     </div>
   </div>
@@ -407,6 +434,56 @@
         <div id="cloud-info" class="cloud-info"></div>
         <button class="btn btn-outline btn-full btn-sm" id="cloud-action-btn" onclick="cloudAction()"></button>
       </div>
+    </div>
+  </div>
+
+  <!-- Tradition Detail Sheet -->
+  <div id="tradition-detail-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div>
+        <div class="sheet-title" id="trad-detail-title"></div>
+        <div class="trad-detail-num" id="trad-detail-num"></div>
+      </div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="trad-detail-desc" id="trad-detail-desc"></div>
+      <div class="trad-detail-why" id="trad-detail-why"></div>
+      <button class="btn btn-full" id="trad-adopt-btn" style="margin-bottom:1.25rem"></button>
+      <div class="trad-memories-header">Memories</div>
+      <div id="trad-memories-list"></div>
+    </div>
+  </div>
+
+  <!-- Add Tradition Memory Sheet -->
+  <div id="tradition-memory-sheet" class="sheet" style="display:none">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title">Add a Memory</div>
+      <button class="icon-btn" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="compose-q" id="trad-mem-title"></div>
+      <div class="form-row">
+        <label class="form-label">What happened? (optional)</label>
+        <textarea class="compose-textarea" id="trad-mem-notes" placeholder="A moment, a quote, something you noticed…" style="min-height:90px"></textarea>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Add a photo (optional)</label>
+        <div class="photo-picker">
+          <input type="file" id="trad-mem-photo-input" accept="image/*" style="display:none" onchange="handleTradMemPhoto(event)" />
+          <div class="photo-placeholder" id="trad-mem-placeholder" onclick="document.getElementById('trad-mem-photo-input').click()">
+            <span class="photo-icon">📷</span>
+            <span class="photo-placeholder-text">Tap to add a photo</span>
+          </div>
+          <div class="photo-preview-wrap" id="trad-mem-preview-wrap" style="display:none">
+            <img id="trad-mem-preview" class="photo-preview" alt="Memory photo" />
+            <button class="photo-remove" onclick="removeTradMemPhoto()">✕</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-full" id="save-trad-mem-btn" onclick="saveTraditionMemory()">💾 Save Memory</button>
     </div>
   </div>
 

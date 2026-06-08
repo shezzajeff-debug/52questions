@@ -125,6 +125,36 @@ create policy "Family members can update logs" on activity_logs
 create policy "Family members can delete logs" on activity_logs
   for delete using (family_id in (select family_id from user_families where user_id = auth.uid()));
 
+-- Adopted traditions
+create table if not exists adopted_traditions (
+  id uuid primary key default gen_random_uuid(),
+  family_id uuid references families(id) on delete cascade not null,
+  tradition_idx integer not null check (tradition_idx >= 0 and tradition_idx <= 51),
+  adopted_at timestamptz default now(),
+  unique(family_id, tradition_idx)
+);
+
+alter table adopted_traditions enable row level security;
+create policy "Family read adopted" on adopted_traditions for select using (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family insert adopted" on adopted_traditions for insert with check (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family delete adopted" on adopted_traditions for delete using (family_id in (select family_id from user_families where user_id = auth.uid()));
+
+-- Tradition memories (each time a tradition is done)
+create table if not exists tradition_memories (
+  id uuid primary key default gen_random_uuid(),
+  family_id uuid references families(id) on delete cascade not null,
+  tradition_idx integer not null check (tradition_idx >= 0 and tradition_idx <= 51),
+  notes text,
+  photo_url text,
+  remembered_at timestamptz default now(),
+  created_at timestamptz default now()
+);
+
+alter table tradition_memories enable row level security;
+create policy "Family read memories" on tradition_memories for select using (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family insert memories" on tradition_memories for insert with check (family_id in (select family_id from user_families where user_id = auth.uid()));
+create policy "Family delete memories" on tradition_memories for delete using (family_id in (select family_id from user_families where user_id = auth.uid()));
+
 -- ── Storage bucket ────────────────────────────────────────────
 -- Run these too:
 insert into storage.buckets (id, name, public)

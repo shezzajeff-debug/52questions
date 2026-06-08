@@ -113,6 +113,64 @@ const ACTIVITIES = [
 ];
 
 const ACTIVITY_TAG_LABELS = { creative:"Creative", outdoor:"Outdoor", ritual:"Ritual", service:"Service", play:"Play", memory:"Memory" };
+
+// ─── TRADITIONS DATA ──────────────────────────────────────────────────────────
+const TRADITIONS = [
+  { title: "The Friday Night Candle", freq: "weekly", tag: "weekly", why: "A lit candle signals that the week is over and family time begins. The ritual of lighting it becomes sacred.", detail: "Every Friday, one person lights a candle at dinner. No phones. Whatever the week held, this hour belongs to everyone." },
+  { title: "Birthday Interview", freq: "annual", tag: "annual", why: "Same questions every year reveal who they are becoming. The archive is the gift.", detail: "On each birthday, ask the same 5 questions: What's your favorite thing right now? What was hard this year? What are you proud of? What do you wish for? What do you want me to know? Record or write the answers." },
+  { title: "First Day of School, Same Spot", freq: "annual", tag: "annual", why: "The photo itself means nothing. The continuity means everything.", detail: "Every first day of school, same doorstep, same pose. Let them hold a sign with the grade if they want. Watch them grow in a single folder." },
+  { title: "Sunday Morning Pancake Bar", freq: "weekly", tag: "weekly", why: "Unhurried mornings with choice and creativity set the tone for the week.", detail: "Every Sunday, lay out toppings — fruit, chocolate chips, sprinkles, syrup. Everyone makes their own. No rules, no rushing." },
+  { title: "Full Moon Walk", freq: "monthly", tag: "monthly", why: "Nature marks time in ways that feel ancient and grounding.", detail: "Once a month, on or near the full moon, take a walk together after dark. Look up. Talk or don't. Let the size of the sky do the work." },
+  { title: "New Year's Letter to Each Other", freq: "annual", tag: "annual", why: "Intention set together carries more weight than resolution made alone.", detail: "On New Year's Eve or Day, each person writes a letter to every other family member: one thing they love about them, one hope for the year ahead. Read them aloud." },
+  { title: "The Gratitude Jar", freq: "weekly", tag: "weekly", why: "Happiness is partly a practiced attention. This trains it.", detail: "Keep a jar on the table. Anyone can drop in a slip of paper — a moment, a kindness, a small joy. Read them together on the last day of each month." },
+  { title: "Annual Family Portrait", freq: "annual", tag: "annual", why: "You will want these. One day they will be the most treasured thing you own.", detail: "Once a year, same month, take a real family photo — dressed how you actually dress, in a place you actually love. Print it. Hang it." },
+  { title: "Seasonal First: The First Swim, Snow, Bloom", freq: "seasonal", tag: "seasonal", why: "Marking firsts teaches children to notice the turning of the year.", detail: "Whenever the first seasonal moment arrives — first swim of summer, first snow, first spring blossom — stop. Mark it. Say: 'This is it. This is the first one.'" },
+  { title: "Bedtime Story You Wrote Together", freq: "weekly", tag: "weekly", why: "A story they helped make is a story that belongs to them.", detail: "One night a week, tell a running story you're both building. Pick up where you left off. Let it get wild. Let them steer it." },
+  { title: "The Worry Jar", freq: "monthly", tag: "monthly", why: "Naming a fear halves its power. Holding it together halves it again.", detail: "Keep a jar where anyone can drop a worry written on paper. Once a month, open it together. Some will have dissolved. Some you'll sit with. None stay secret." },
+  { title: "Parent's Childhood Story Night", freq: "monthly", tag: "monthly", why: "Children need to know you were once exactly where they are.", detail: "Once a month, share one real story from your own childhood — embarrassing, funny, hard, or strange. Let them ask questions. Let them see you then." },
+  { title: "Holiday Ornament, One Per Year", freq: "annual", tag: "annual", why: "The tree becomes a timeline. Unpacking it becomes memory.", detail: "Every year, choose or make one ornament together that represents that year — a trip, a phase, something funny that happened. Label it with the year." },
+  { title: "Summer Bucket List", freq: "seasonal", tag: "seasonal", why: "Anticipation is its own form of joy. A list gives summer a shape.", detail: "At the start of summer, each person adds 3 things to a shared list. Hang it somewhere visible. Cross things off together." },
+  { title: "Weekly Weather Check-In", freq: "weekly", tag: "weekly", why: "Simple metaphors lower the barrier to honest emotional sharing.", detail: "Each week, everyone shares their 'weather report' — sunny, stormy, foggy, partly cloudy. No explanation required unless they want to give one." },
+  { title: "The Birthday Breakfast in Bed", freq: "annual", tag: "annual", why: "Being served says: today, you are celebrated without doing anything.", detail: "On each person's birthday, someone brings them breakfast in bed — whatever their favorite is. The effort is the point." },
+  { title: "Annual Camping Night (Even in the Backyard)", freq: "annual", tag: "annual", why: "Sleeping outside together in any form creates a sense of gentle adventure.", detail: "Once a year, sleep outside — tent in the backyard, rooftop, or real campsite. Tell stories until someone falls asleep." },
+  { title: "First Harvest / Garden Moment", freq: "seasonal", tag: "seasonal", why: "Growing something teaches patience, care, and that things come from somewhere.", detail: "Each spring, plant something together — even a single herb pot. Water it. Eat what it makes. Mark the first harvest." },
+  { title: "The Special Plate", freq: "weekly", tag: "weekly", why: "Being singled out for celebration, without occasion, is rare and powerful.", detail: "Keep one special plate. On any given week, give it to whoever needs a boost — no reason needed. They use it all day." },
+  { title: "Movie Night Rotation", freq: "weekly", tag: "weekly", why: "Letting each person lead something builds ownership of the family culture.", detail: "Each week, one person picks the movie, no vetoes allowed. They choose the snacks too. The picker introduces it: why they love it." },
+  { title: "The Last Day of School Tradition", freq: "annual", tag: "annual", why: "Endings deserve marking as much as beginnings.", detail: "On the last day of school, do the same thing every year — a favorite meal, a small gift, a walk, a question: 'What will you remember most about this year?'" },
+  { title: "Heirloom Recipe Night", freq: "monthly", tag: "monthly", why: "Food is memory. Teaching it is transmission of identity.", detail: "Once a month, cook a recipe from the family's past — a grandparent's dish, a dish from your heritage, a meal from a meaningful trip. Tell the story while you cook." },
+  { title: "Solstice or Equinox Marking", freq: "seasonal", tag: "seasonal", why: "Acknowledging the natural calendar connects children to something larger than the school year.", detail: "Four times a year, mark the solstice or equinox together in some small way — a walk, a candle, a special meal, a moment outside at a significant time." },
+  { title: "Thank-You Note Sunday", freq: "monthly", tag: "monthly", why: "Gratitude expressed outward is character being built.", detail: "One Sunday a month, everyone writes one thank-you — to a teacher, a friend, a grandparent, a neighbor. Handwritten. Actually sent." },
+  { title: "The Year in Photos", freq: "annual", tag: "annual", why: "Curating memory is an act of love for your future selves.", detail: "In December, sit together and choose 12 photos from the year — one per month. Print them. Put them in an album or frame one. Review it every New Year's." },
+  { title: "Rainy Day Ritual", freq: "seasonal", tag: "seasonal", why: "A bad-weather day transformed into something cozy builds emotional resilience.", detail: "When it rains, you do the same thing: blankets, hot drinks, a specific movie or game or baking project. The rain becomes a signal, not an inconvenience." },
+  { title: "The Nightly Rose and Thorn", freq: "daily", tag: "daily", why: "Children who regularly name their hard moments and good moments become emotionally fluent adults.", detail: "At dinner or bedtime, everyone shares one rose (best thing) and one thorn (hardest thing) from the day. No fixing — just listening." },
+  { title: "Spring Cleaning Together", freq: "seasonal", tag: "seasonal", why: "Letting go of things together teaches intentional living and shared stewardship.", detail: "Each spring, go through the house together. Each person chooses things to donate. Make it a game — who can fill a bag fastest. Then drop it off together." },
+  { title: "The 'I'm Proud of You' Text or Note", freq: "weekly", tag: "weekly", why: "Unprompted specific praise reaches deeper than general encouragement.", detail: "Once a week, leave a written note or send a text to one family member with one specific thing you're proud of them for. No occasion needed." },
+  { title: "Grandparent Story Recording", freq: "annual", tag: "annual", why: "The stories disappear when the elders do. Recording them is preservation.", detail: "Once a year, sit with a grandparent or elder and record them answering: 'What was life like when you were young?' Save the recording. It will become irreplaceable." },
+  { title: "Cooking From Another Culture", freq: "monthly", tag: "monthly", why: "Food from other traditions is a gentle introduction to the size of the world.", detail: "Once a month, pick a country or culture and cook a dish from it together. Look it up together. Talk about where the people live, what they value." },
+  { title: "The Milestone Stone", freq: "annual", tag: "annual", why: "A physical object that marks time becomes a family artifact.", detail: "Each year, find or paint a stone together. Write the year and one word that describes it. Keep them in a bowl. Let the collection grow." },
+  { title: "Firelight Friday", freq: "monthly", tag: "monthly", why: "Firelight slows people down. It's hard to be distracted by a screen in front of a flame.", detail: "Once a month on a Friday, gather around a fire — backyard, firepit, or candles. No agenda. Just warmth and each other." },
+  { title: "The Family Walk After Dinner", freq: "weekly", tag: "weekly", why: "Movement and fresh air after food loosens conversation that stays stuck indoors.", detail: "After dinner, everyone walks — same route or different, doesn't matter. Some of the best conversations happen in those 20 minutes." },
+  { title: "Advent or Countdown Tradition", freq: "seasonal", tag: "seasonal", why: "Anticipation stretched over days creates richer experience than a single day.", detail: "In the lead-up to any significant event or holiday, create a small daily ritual — a note, a small act, a question, a kindness — that builds toward the day." },
+  { title: "The Family Time Capsule Opening", freq: "annual", tag: "annual", why: "The opening is as important as the making. It closes the loop on time.", detail: "Each year, open the time capsule you made 12 months ago. Read what you hoped for, what you were worried about, what you loved. Then make a new one." },
+  { title: "Volunteer Birthday", freq: "annual", tag: "annual", why: "Orienting a celebration toward giving transforms its meaning.", detail: "On or near a birthday, do one act of service as a family — chosen by the birthday person. It becomes part of how they understand their own birthday." },
+  { title: "The Family Book Club", freq: "monthly", tag: "monthly", why: "Reading the same story creates shared language, empathy, and conversation.", detail: "Once a month, everyone reads (or listens to) the same book or a chapter together. At dinner, ask: Who did you connect with? What would you have done?" },
+  { title: "Sacred Saturday Morning", freq: "weekly", tag: "weekly", why: "Protecting one unhurried morning teaches children that not all time must be productive.", detail: "Saturday mornings are slow — no alarm, no schedule, no screens until everyone's been awake for an hour. Whatever naturally unfolds is the plan." },
+  { title: "The 'You Were Brave' Jar", freq: "monthly", tag: "monthly", why: "Courage noted immediately becomes a story they carry.", detail: "Whenever someone in the family does something brave — big or small — write it on a slip and put it in a jar. Read them together monthly." },
+  { title: "New Skill December", freq: "seasonal", tag: "seasonal", why: "Choosing to learn something new together models growth mindset.", detail: "Every December, each person picks one small skill to learn that month. At the end of the month, everyone shows what they learned." },
+  { title: "The Last Night of Summer", freq: "seasonal", tag: "seasonal", why: "Marking endings with ritual prevents them from slipping past unacknowledged.", detail: "On the last night before school resumes, do the same thing every year — stay up a little late, eat something special, say what you're carrying into the new season." },
+  { title: "Morning Affirmation Mirror", freq: "daily", tag: "daily", why: "Words said to a face in a mirror sink in differently than words read or heard.", detail: "Each morning, one family member says one true thing about themselves in the mirror — not aspirational, just real. Rotate who leads it at breakfast." },
+  { title: "The Handwritten Family Chronicle", freq: "monthly", tag: "monthly", why: "A written record, however imperfect, becomes the family's mythology.", detail: "Once a month, someone writes a page in a family journal — what happened, who was funny, what was hard. No pressure for it to be good. Pressure for it to exist." },
+  { title: "Unplug Sunday (or Sunday Afternoon)", freq: "weekly", tag: "weekly", why: "Digital absence reveals what's actually there between people.", detail: "Once a week, phones off or in a drawer for a set window of time. Notice what fills the space. Let the boredom briefly arrive and then dissolve." },
+  { title: "Heritage Day", freq: "annual", tag: "annual", why: "Children who know where they come from feel more rooted in who they are.", detail: "Once a year, spend a day exploring your family's heritage — food, music, stories, a film. Make it sensory. Let them ask questions about the people before them." },
+  { title: "The Birthday Crown or Chair", freq: "annual", tag: "annual", why: "Physical symbols of specialness communicate: you are worthy of ceremony.", detail: "On each birthday, one person wears a crown (homemade or bought) or sits in a designated special chair. Small, but it signals: today is yours." },
+  { title: "End-of-Year Celebration Dinner", freq: "annual", tag: "annual", why: "Intentionally closing a year together before opening the next one is profoundly stabilizing.", detail: "On the last day of December (or the school year), make a special dinner together. Each person shares their highlight of the year. Toast each other with whatever's in the glasses." },
+  { title: "The 'Hard Day' Protocol", freq: "weekly", tag: "weekly", why: "A predetermined response to hard days removes the guesswork and replaces it with love.", detail: "When someone is having a hard day, the family has a standing offer: you can ask for a hug, a walk, quiet company, or to be left alone — and whoever is asked says yes." },
+  { title: "Seasonal Nature Table", freq: "seasonal", tag: "seasonal", why: "Bringing the outside in connects daily life to the turning of the natural world.", detail: "Each season, create a small table or shelf display together — objects from outside, a candle, something that represents the season. Change it when the season turns." },
+  { title: "The Annual Letter to the Family", freq: "annual", tag: "annual", why: "A written account of the year, addressed to the family, becomes a document of love.", detail: "Once a year, one parent writes a letter to the whole family — what this year held, what they saw in each person, what they hope for. Read it aloud at dinner." },
+  { title: "Bedtime Whisper", freq: "daily", tag: "daily", why: "The last thing heard before sleep becomes the thing carried into dreams.", detail: "Every night at bedtime, whisper the same thing — or something true — into their ear. 'I love you exactly as you are.' 'You were brave today.' It never gets old." },
+];
+
+const TRADITION_TAG_LABELS = { daily:"Daily", weekly:"Weekly", monthly:"Monthly", seasonal:"Seasonal", annual:"Annual" };
 const EMOJIS = ['🌟','🦋','🌈','🌿','🦁','🐬','🦊','🌸','🍀','🌺','🦄','🐻','🌙','☀️','🦜','🐧','🌻','🎈','🌊','🦅','🐝','🎀','🦒','🐙'];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -120,6 +178,8 @@ let state = {
   members: [],
   answers: [],
   activityLogs: [],
+  adoptedTraditions: [],   // [{ id, traditionIdx, adoptedAt }]
+  traditionMemories: [],   // [{ id, traditionIdx, notes, photoUrl, date }]
   familyName: 'Our Family',
   familyId: null,
   inviteCode: null,
@@ -143,6 +203,12 @@ let ui = {
   logPhotoFile: null,
   logPhotoUrl: null,
   detailLogId: null,
+  tFilter: 'all',
+  tSearch: '',
+  tradDetailIdx: null,
+  tradMemPhotoFile: null,
+  tradMemPhotoUrl: null,
+  detailTradMemId: null,
   editMemberId: null,
   selectedEmoji: '🌟',
   selectedPhotoFile: null,
@@ -320,6 +386,19 @@ async function loadFromCloud() {
     id: l.id, memberId: l.member_id, activityIdx: l.activity_idx,
     notes: l.notes, date: l.logged_at, photoUrl: l.photo_url,
   }));
+
+  // Load adopted traditions
+  const { data: adopted } = await sb.from('adopted_traditions').select('*').eq('family_id', fam.id);
+  state.adoptedTraditions = (adopted || []).map(a => ({
+    id: a.id, traditionIdx: a.tradition_idx, adoptedAt: a.adopted_at,
+  }));
+
+  // Load tradition memories
+  const { data: tmems } = await sb.from('tradition_memories').select('*').eq('family_id', fam.id).order('remembered_at', { ascending: false });
+  state.traditionMemories = (tmems || []).map(m => ({
+    id: m.id, traditionIdx: m.tradition_idx,
+    notes: m.notes, photoUrl: m.photo_url, date: m.remembered_at,
+  }));
   saveLocal();
 }
 
@@ -450,6 +529,11 @@ function renderHome() {
   document.getElementById('activity-week-num').textContent = `🎯 Activity · Week ${weekIdx + 1}`;
   document.getElementById('activity-week-title').textContent = wa.title;
 
+  // This week's tradition
+  const wt = TRADITIONS[weekIdx];
+  document.getElementById('tradition-week-num').textContent = `🔥 Tradition · Week ${weekIdx + 1}`;
+  document.getElementById('tradition-week-title').textContent = wt.title;
+
   // Members row
   const row = document.getElementById('home-members');
   row.innerHTML = '';
@@ -555,14 +639,16 @@ document.getElementById('q-search').addEventListener('input', e => {
 // ─── TAB SWITCHING ────────────────────────────────────────────────────────────
 function showTab(tab) {
   ui.activeTab = tab;
-  document.getElementById('panel-questions').style.display = tab === 'questions' ? 'flex' : 'none';
-  document.getElementById('panel-questions').style.flexDirection = 'column';
-  document.getElementById('panel-activities').style.display = tab === 'activities' ? 'flex' : 'none';
-  document.getElementById('panel-activities').style.flexDirection = 'column';
-  document.getElementById('tab-questions').classList.toggle('active', tab === 'questions');
-  document.getElementById('tab-activities').classList.toggle('active', tab === 'activities');
-  document.getElementById('explore-title').textContent = tab === 'questions' ? 'Questions' : 'Activities';
+  ['questions','activities','traditions'].forEach(t => {
+    const panel = document.getElementById('panel-' + t);
+    if (panel) { panel.style.display = tab === t ? 'flex' : 'none'; panel.style.flexDirection = 'column'; }
+    const btn = document.getElementById('tab-' + t);
+    if (btn) btn.classList.toggle('active', tab === t);
+  });
+  const titles = { questions:'Questions', activities:'Activities', traditions:'Traditions' };
+  document.getElementById('explore-title').textContent = titles[tab] || 'Explore';
   if (tab === 'activities') renderActivities();
+  if (tab === 'traditions') renderTraditions();
 }
 
 // ─── ACTIVITIES LIST ──────────────────────────────────────────────────────────
@@ -602,6 +688,11 @@ function setAFilter(tag, el) {
 document.getElementById('a-search').addEventListener('input', e => {
   ui.aSearch = e.target.value;
   renderActivities();
+});
+
+document.getElementById('t-search').addEventListener('input', e => {
+  ui.tSearch = e.target.value;
+  renderTraditions();
 });
 
 // ─── ACTIVITY LOG ─────────────────────────────────────────────────────────────
@@ -1142,6 +1233,193 @@ async function signOut() {
 }
 
 function cloudAction() {} // replaced dynamically in openSettings
+
+// ─── TRADITIONS ───────────────────────────────────────────────────────────────
+function renderTraditions() {
+  const list = document.getElementById('t-list');
+  if (!list) return;
+  list.innerHTML = '';
+  const search = ui.tSearch.toLowerCase();
+  TRADITIONS.forEach((t, i) => {
+    if (ui.tFilter !== 'all' && t.tag !== ui.tFilter) return;
+    if (search && !t.title.toLowerCase().includes(search)) return;
+    const adopted = state.adoptedTraditions.find(a => a.traditionIdx === i);
+    const memCount = state.traditionMemories.filter(m => m.traditionIdx === i).length;
+    const row = document.createElement('div');
+    row.className = 'q-row tradition-row' + (adopted ? ' answered' : '');
+    row.innerHTML = `
+      <div class="q-num-badge trad-badge">${adopted ? '🔥' : i+1}</div>
+      <div class="q-row-body">
+        <div class="q-row-text">${t.title}</div>
+        <div class="q-row-meta">
+          <span class="q-tag-sm tag-trad-${t.tag}">${TRADITION_TAG_LABELS[t.tag]}</span>
+          ${adopted ? `<span class="answered-dot" style="background:#e8a96a"></span><span class="answered-count">${memCount} memor${memCount===1?'y':'ies'}</span>` : ''}
+        </div>
+      </div>
+      <div class="q-chevron">›</div>`;
+    row.onclick = () => openTraditionDetail(i);
+    list.appendChild(row);
+  });
+}
+
+function setTFilter(tag, el) {
+  ui.tFilter = tag;
+  el.closest('.filter-chips').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderTraditions();
+}
+
+// Open tradition detail sheet (shows info + adopt button + memories)
+function openTraditionDetail(idx) {
+  ui.tradDetailIdx = idx;
+  const t = TRADITIONS[idx];
+  const adopted = state.adoptedTraditions.find(a => a.traditionIdx === idx);
+  const memories = state.traditionMemories.filter(m => m.traditionIdx === idx).sort((a,b) => new Date(b.date)-new Date(a.date));
+
+  document.getElementById('trad-detail-num').textContent = `Tradition ${idx+1} · ${TRADITION_TAG_LABELS[t.tag]}`;
+  document.getElementById('trad-detail-title').textContent = t.title;
+  document.getElementById('trad-detail-desc').textContent = t.detail;
+  document.getElementById('trad-detail-why').textContent = t.why;
+
+  const adoptBtn = document.getElementById('trad-adopt-btn');
+  if (adopted) {
+    adoptBtn.textContent = '🔥 Adopted · Add a Memory';
+    adoptBtn.className = 'btn btn-full';
+    adoptBtn.onclick = () => openAddTraditionMemory(idx);
+  } else {
+    adoptBtn.textContent = '💛 Adopt This Tradition';
+    adoptBtn.className = 'btn btn-full btn-outline';
+    adoptBtn.onclick = () => adoptTradition(idx);
+  }
+
+  // Memories list
+  const memList = document.getElementById('trad-memories-list');
+  memList.innerHTML = '';
+  if (memories.length === 0) {
+    memList.innerHTML = `<div style="font-size:0.85rem;color:var(--muted);text-align:center;padding:1rem 0">No memories yet. Adopt and do it — then come back to add one.</div>`;
+  } else {
+    memories.forEach(mem => {
+      const el = document.createElement('div');
+      el.className = 'trad-memory-card';
+      el.innerHTML = `
+        ${mem.photoUrl ? `<img src="${mem.photoUrl}" class="trad-mem-photo" alt="Memory" />` : ''}
+        <div class="trad-mem-date">${fmtDate(mem.date)}</div>
+        ${mem.notes ? `<div class="trad-mem-notes">${escHtml(mem.notes)}</div>` : ''}
+        <button class="trad-mem-delete" onclick="deleteTraditionMemory('${mem.id}')">🗑</button>`;
+      memList.appendChild(el);
+    });
+  }
+
+  openSheet('tradition-detail-sheet');
+}
+
+async function adoptTradition(idx) {
+  const already = state.adoptedTraditions.find(a => a.traditionIdx === idx);
+  if (already) { openAddTraditionMemory(idx); return; }
+
+  const entry = { id: Date.now().toString(), traditionIdx: idx, adoptedAt: new Date().toISOString() };
+  if (sb && state.familyId) {
+    const { data: row } = await sb.from('adopted_traditions').insert({
+      family_id: state.familyId, tradition_idx: idx,
+    }).select().single();
+    if (row) entry.id = row.id;
+    setSyncStatus(true);
+  }
+  state.adoptedTraditions.push(entry);
+  saveLocal();
+  // Re-open to refresh UI
+  openTraditionDetail(idx);
+  renderTraditions();
+}
+
+function openAddTraditionMemory(idx) {
+  ui.tradDetailIdx = idx;
+  ui.tradMemPhotoFile = null;
+  ui.tradMemPhotoUrl = null;
+  document.getElementById('trad-mem-title').textContent = TRADITIONS[idx].title;
+  document.getElementById('trad-mem-notes').value = '';
+  document.getElementById('trad-mem-photo-input').value = '';
+  document.getElementById('trad-mem-preview-wrap').style.display = 'none';
+  document.getElementById('trad-mem-placeholder').style.display = 'flex';
+  closeSheet();
+  openSheet('tradition-memory-sheet');
+}
+
+function handleTradMemPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  ui.tradMemPhotoFile = file;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    ui.tradMemPhotoUrl = ev.target.result;
+    document.getElementById('trad-mem-preview').src = ev.target.result;
+    document.getElementById('trad-mem-preview-wrap').style.display = 'block';
+    document.getElementById('trad-mem-placeholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeTradMemPhoto() {
+  ui.tradMemPhotoFile = null; ui.tradMemPhotoUrl = null;
+  document.getElementById('trad-mem-photo-input').value = '';
+  document.getElementById('trad-mem-preview-wrap').style.display = 'none';
+  document.getElementById('trad-mem-placeholder').style.display = 'flex';
+}
+
+async function saveTraditionMemory() {
+  const btn = document.getElementById('save-trad-mem-btn');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  try {
+    let photoUrl = null;
+    if (ui.tradMemPhotoFile && sb && state.familyId) {
+      const ext = ui.tradMemPhotoFile.name.split('.').pop();
+      const path = `${state.familyId}/trad_${Date.now()}.${ext}`;
+      const { error: upErr } = await sb.storage.from('photos').upload(path, ui.tradMemPhotoFile);
+      if (!upErr) {
+        const { data: urlData } = sb.storage.from('photos').getPublicUrl(path);
+        photoUrl = urlData?.publicUrl;
+      }
+    } else if (ui.tradMemPhotoUrl && !sb) {
+      photoUrl = ui.tradMemPhotoUrl;
+    }
+
+    const mem = {
+      id: Date.now().toString(),
+      traditionIdx: ui.tradDetailIdx,
+      notes: document.getElementById('trad-mem-notes').value.trim() || null,
+      photoUrl,
+      date: new Date().toISOString(),
+    };
+
+    if (sb && state.familyId) {
+      const { data: row } = await sb.from('tradition_memories').insert({
+        family_id: state.familyId, tradition_idx: mem.traditionIdx,
+        notes: mem.notes, photo_url: mem.photoUrl, remembered_at: mem.date,
+      }).select().single();
+      if (row) mem.id = row.id;
+      setSyncStatus(true);
+    }
+
+    state.traditionMemories.unshift(mem);
+    saveLocal();
+    closeSheet();
+    renderTraditions();
+    renderHome();
+    // Reopen detail to show new memory
+    openTraditionDetail(ui.tradDetailIdx);
+  } finally {
+    btn.textContent = '💾 Save Memory'; btn.disabled = false;
+  }
+}
+
+async function deleteTraditionMemory(memId) {
+  if (!confirm('Delete this memory?')) return;
+  if (sb) await sb.from('tradition_memories').delete().eq('id', memId);
+  state.traditionMemories = state.traditionMemories.filter(m => m.id !== memId);
+  saveLocal();
+  openTraditionDetail(ui.tradDetailIdx); // refresh
+  renderTraditions();
+}
 
 // ─── SHEETS ───────────────────────────────────────────────────────────────────
 function openSheet(id) {
